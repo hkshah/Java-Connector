@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<procedures>
+	<v1>
+		<procedure name="XX_JAVA_CONNECTOR_PKG.JAVA_CONNECTOR_BASIC">
+			<params mode="IN" jdbcType="VARCHAR">p_user_name</params>
+			<params mode="IN" jdbcType="DATE">p_created_date</params>
+			<params mode="IN" jdbcType="INTEGER">p_employee_age</params>
+			<params mode="IN" jdbcType="CLOB"
+				typeHandler="org.apache.ibatis.type.ClobTypeHandler">p_xml_data</params>
+			<params mode="INOUT" jdbcType="VARCHAR">p_emp_comments</params>
+
+			<params mode="OUT" jdbcType="CLOB"
+				typeHandler="org.apache.ibatis.type.ClobTypeHandler">x_xml_output</params>
+			<params mode="OUT" jdbcType="DATE">x_created_date</params>
+			<params mode="OUT" jdbcType="INTEGER">x_return_code</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_msg</params>
+		</procedure>
+
+		<procedure name="XX_JAVA_CONNECTOR_PKG.JAVA_CONNECTOR_BASIC2">
+			<params mode="OUT" jdbcType="BLOB"
+				typeHandler="org.apache.ibatis.type.BlobTypeHandler">x_emp_image</params>
+			<params mode="OUT" jdbcType="INTEGER">x_return_code</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_msg</params>
+		</procedure>
+
+		<procedure name="XX_JAVA_CONNECTOR_PKG.JAVA_CONNECTOR_BASIC3">
+			<params mode="IN" jdbcType="VARCHAR">p_user_name</params>
+			<params mode="IN" jdbcType="BLOB"
+				typeHandler="org.apache.ibatis.type.BlobTypeHandler">p_employee_image</params>
+			<params mode="IN" jdbcType="DATE">p_created_date</params>
+			<params mode="IN" jdbcType="INTEGER">p_employee_age</params>
+
+			<params mode="IN" jdbcType="ARRAY" jdbcTypeName="XX_ADDRESS_DETAILS_TAB"
+				jdbcStruct="XX_ADDRESS_DETAILS_REC"
+				typeHandler="com.rapidvalue.master.mycustom.handler.AddressDetailsHandler">p_address_details</params>
+
+			<params mode="OUT" jdbcType="ARRAY" jdbcTypeName="XX_ADDRESS2_DETAILS_TAB"
+				jdbcStruct="XX_ADDRESS2_DETAILS_REC"
+				typeHandler="com.rapidvalue.master.mycustom.handler.AddressDetails1Handler">x_address_details</params>
+			<params mode="OUT" jdbcType="BLOB"
+				typeHandler="org.apache.ibatis.type.BlobTypeHandler">x_employee_image</params>
+			<params mode="OUT" jdbcType="DATE">x_created_date</params>
+			<params mode="OUT" jdbcType="INTEGER">x_return_code</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_msg</params>
+		</procedure>
+
+		<procedure name="RVEXP_PUSHNOTIFICATION_PKG.PUSH_NOT_FETCH">
+			<params mode="OUT" jdbcType="ARRAY" jdbcTypeName="RVEXP_PUSH_NOT_FETCH_TAB"
+				jdbcStruct="RVEXP_PUSH_NOT_FETCH_REC" typeHandler="com.rapidvalue.master.mycustom.handler.PushFetchHandler">x_user_details</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_code</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_msg</params>
+		</procedure>
+
+		<procedure name="RVEAM_LOGIN_PKG.GET_LOGIN_DETAILS">
+			<params mode="IN" jdbcType="VARCHAR">p_user_name</params>
+			<params mode="IN" jdbcType="VARCHAR">p_password</params>
+			<params mode="OUT" jdbcType="ARRAY" jdbcTypeName="RVEAM_LOGIN_DETAILS_TAB"
+				jdbcStruct="RVEAM_LOGIN_DETAILS_REC" typeHandler="com.rapidvalue.master.mycustom.handler.MyLoginHandler">x_login_details_tab</params>
+			<params mode="OUT" jdbcType="BLOB"
+				typeHandler="org.apache.ibatis.type.BlobTypeHandler">x_image</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_code</params>
+			<params mode="OUT" jdbcType="VARCHAR">x_return_msg</params>
+		</procedure>
+
+
+	</v1>
+</procedures>

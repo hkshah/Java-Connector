@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd ">
+
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="com.rapidvalue"
+		annotation-config="true" />
+
+	<task:annotation-driven scheduler="myScheduler"
+		executor="myExecutor" />
+	<task:executor id="myExecutor" pool-size="50-500"
+		queue-capacity="5000" />
+	<task:scheduler id="myScheduler" pool-size="10" />
+
+	<jee:jndi-lookup id="custom-datasource" jndi-name="jdbc/mycustomDB" />
+
+	<!-- transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="custom-datasource" />
+	</bean>
+
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="custom-datasource" />
+		<property name="typeAliasesPackage" value="com.rapidvalue.master.approval.vo" />
+		<property name="plugins">
+			<array>
+				<bean class="com.rapidvalue.master.dao.plugin.ParameterHandlerInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/config/customservices.properties" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	<context:annotation-config />
+	<import resource="classpath*:*-servlet.xml" />
+
+</beans>

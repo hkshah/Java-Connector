@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=C:\Users\niranjanadevi.c\Downloads\master\master\common\lib\ojdbc6.jar -DgroupId=ojdbc -DartifactId=ojdbc -Dversion=6 -Dpackaging=jar
+mvn install:install-file -Dfile=pushnotification.jar -DgroupId=com.rapidvalue.master -DartifactId=pushnotification -Dversion=1.0 -Dpackaging=jar
